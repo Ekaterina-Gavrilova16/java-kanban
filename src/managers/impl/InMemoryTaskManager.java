@@ -53,6 +53,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteAllSubtasks() {
         subtasks.clear();
+    }
+    public void calculateEpicsStatus() {
         // вычисление статуса эпиков
         List<Epic> epicsList = getListOfEpics();
         for(Epic epic : epicsList) {
@@ -97,7 +99,6 @@ public class InMemoryTaskManager implements TaskManager {
     public int addNewTask(Task task) {
         int id = ++generatorId;
         task.setId(id);
-        //allTaskIds.add(id);
         tasks.put(id, task);
         return id;
     }
@@ -106,7 +107,6 @@ public class InMemoryTaskManager implements TaskManager {
     public int addNewEpic(Epic epic) {
         int id = ++generatorId;
         epic.setId(id);
-       // allTaskIds.add(id);
         epics.put(id, epic);
         return id;
     }
@@ -121,7 +121,6 @@ public class InMemoryTaskManager implements TaskManager {
         Integer id = ++generatorId;
         subtask.setId(id);
         currentEpic.getSubtaskIds().add(id);
-        //allTaskIds.add(id);
         subtasks.put(id, subtask);
         updateEpicStatus(currentEpic);
         return id;
